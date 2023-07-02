@@ -20,7 +20,7 @@ async fn main() -> io::Result<()> {
                             // Unexpected socket error
                             return;
                         }
-                    },
+                    }
                     Err(_) => {
                         // Unexpected socket error
                         return;

@@ -13,7 +13,7 @@ enum Command {
         key: String,
         val: Bytes,
         resp: Responder<()>,
-    }
+    },
 }
 
 #[tokio::main]
@@ -31,11 +31,11 @@ async fn main() {
                 Command::Get { key, resp } => {
                     let res = client.get(&key).await;
                     let _ = resp.send(res);
-                },
+                }
                 Command::Set { key, val, resp } => {
                     let res = client.set(&key, val).await;
                     let _ = resp.send(res);
-                },
+                }
             }
         }
     });
@@ -45,7 +45,7 @@ async fn main() {
         let (resp_tx, resp_rx) = oneshot::channel();
         let cmd = Command::Get {
             key: "foo".into(),
-            resp: resp_tx
+            resp: resp_tx,
         };
         if tx.send(cmd).await.is_err() {
             eprintln!("Connection task shutdown");
@@ -62,7 +62,7 @@ async fn main() {
         let cmd = Command::Set {
             key: "foo".into(),
             val: "bar".into(),
-            resp: resp_tx
+            resp: resp_tx,
         };
         if tx2.send(cmd).await.is_err() {
             eprintln!("Connection task shutdown");
